@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { message, Modal } from "antd"
 import { Book } from "lucide-react"
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://bookstore-be-b450.onrender.com/api";
 
 // ------------------ ICONS ------------------
 const PercentIcon = () => (
@@ -126,7 +126,7 @@ export default function PromotionForm() {
           return
         }
 
-        const response = await fetch(`${API_URL}/employeesID/user/${userId}`)
+        const response = await fetch(`https://bookstore-be-b450.onrender.com/api/employeesID/user/${userId}`)
         if (!response.ok) throw new Error("Failed to fetch employee")
         const data = await response.json()
         console.log("[v0] Current employee fetched:", data)
@@ -153,7 +153,7 @@ export default function PromotionForm() {
   const fetchBooks = async () => {
     try {
       setBooksLoading(true)
-      const response = await fetch(`${API_URL}/books`)
+      const response = await fetch("https://bookstore-be-b450.onrender.com/api/books")
       if (!response.ok) throw new Error("Failed to fetch books")
       const data = await response.json()
       console.log("[v0] Books fetched:", data)
@@ -168,7 +168,7 @@ export default function PromotionForm() {
 
   const fetchPromotions = async () => {
     try {
-      const response = await fetch(`${API_URL}/promotions`)
+      const response = await fetch("https://bookstore-be-b450.onrender.com/api/promotions")
       if (!response.ok) throw new Error("Failed to fetch promotions")
       const data = await response.json()
       console.log("[v0] Promotions fetched:", data)
@@ -240,7 +240,7 @@ export default function PromotionForm() {
         }
 
         console.log("[v0] Submitting by-book promotion:", promotionData)
-        const response = await fetch(`${API_URL}/promotions`, {
+        const response = await fetch("https://bookstore-be-b450.onrender.com/api/promotions", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(promotionData),
@@ -295,7 +295,7 @@ export default function PromotionForm() {
         }
 
         console.log("[v0] Submitting promotion:", promotionData)
-        const response = await fetch(`${API_URL}/promotions/${id}`, {
+        const response = await fetch("https://bookstore-be-b450.onrender.com/api/promotions", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(promotionData),
@@ -352,7 +352,7 @@ export default function PromotionForm() {
       okType: "danger",
       async onOk() {
         try {
-          const response = await fetch(`${API_URL}/promotions/${id}`, {
+          const response = await fetch(`https://bookstore-be-b450.onrender.com/api/promotions/${id}`, {
             method: "DELETE",
           })
           if (!response.ok) throw new Error("Failed to delete promotion")
@@ -369,7 +369,7 @@ export default function PromotionForm() {
   const toggleStatus = async (id, currentStatus) => {
     try {
       const newStatus = currentStatus === "active" ? "inactive" : "active"
-      const response = await fetch(`${API_URL}/promotions/${id}`, {
+      const response = await fetch(`https://bookstore-be-b450.onrender.com/api/promotions/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
@@ -414,7 +414,8 @@ export default function PromotionForm() {
               </div>
             ) : currentEmployee ? (
               <div className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-blue-50 text-gray-700 font-medium">
-                {currentEmployee.firstName} {currentEmployee.lastName} {currentEmployee.email}
+                {currentEmployee.firstName || ''} {currentEmployee.lastName || ''}
+                {currentEmployee.email ? ` (${currentEmployee.email})` : ''}
               </div>
             ) : (
               <div className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-red-50 text-red-600">
@@ -429,22 +430,20 @@ export default function PromotionForm() {
             <div className="flex gap-3">
               <button
                 type="button"
-                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${
-                  discountType === "fixed"
+                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${discountType === "fixed"
                     ? "bg-purple-500 text-white border-purple-500 shadow-md"
                     : "bg-white text-gray-700 border-gray-300 hover:border-purple-300"
-                }`}
+                  }`}
                 onClick={() => setDiscountType("fixed")}
               >
                 <MoneyIcon /> Giảm cố định
               </button>
               <button
                 type="button"
-                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${
-                  discountType === "percent"
+                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${discountType === "percent"
                     ? "bg-purple-500 text-white border-purple-500 shadow-md"
                     : "bg-white text-gray-700 border-gray-300 hover:border-purple-300"
-                }`}
+                  }`}
                 onClick={() => setDiscountType("percent")}
               >
                 <PercentIcon /> Giảm phần trăm
@@ -689,13 +688,12 @@ export default function PromotionForm() {
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-start gap-3 flex-1">
                     <div
-                      className={`p-2 rounded-lg ${
-                        promo.type === "percent"
+                      className={`p-2 rounded-lg ${promo.type === "percent"
                           ? "bg-blue-100 text-blue-600"
                           : promo.type === "by-book"
                             ? "bg-orange-100 text-orange-600"
                             : "bg-green-100 text-green-600"
-                      }`}
+                        }`}
                     >
                       {promo.type === "percent" ? (
                         <PercentIcon />
@@ -721,13 +719,22 @@ export default function PromotionForm() {
                           </span>
                         </div>
                       )}
+                      {promo.createdByEmployee && (
+                        <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span>
+                            Người lập: {promo.createdByEmployee.firstName || ''} {promo.createdByEmployee.lastName || 'N/A'}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <button
                     onClick={() => toggleStatus(promo._id || promo.id, promo.status)}
-                    className={`text-sm font-medium px-3 py-1 rounded-full ${
-                      promo.status === "active" ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-500"
-                    }`}
+                    className={`text-sm font-medium px-3 py-1 rounded-full ${promo.status === "active" ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-500"
+                      }`}
                   >
                     {promo.status === "active" ? "Đang hoạt động" : "Đã tắt"}
                   </button>
