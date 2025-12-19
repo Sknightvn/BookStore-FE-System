@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Plus, Edit2, Trash2 } from "lucide-react";
-import { Modal, message, Table, Breadcrumb } from "antd";
+import { Plus, Edit2, Trash2, Search } from "lucide-react";
+import { Modal, message, Table, Breadcrumb, Button, Input } from "antd";
 import AddBookModal from "./AddBookModal";
 import EditBookModal from "./EditBookModal";
 const API_URL = import.meta.env.VITE_API_URL || "https://bookstore-be-b450.onrender.com/api";
@@ -153,13 +153,9 @@ const BookManagementPage = () => {
       width: 120,
       align: "center",
       render: (_value, record) => (
-        <div className="flex gap-4 justify-center">
-          <button onClick={() => handleEdit(record)} className="text-blue-600 hover:text-blue-800">
-            <Edit2 size={18} />
-          </button>
-          <button onClick={() => handleDelete(record._id, record.title)} className="text-red-600 hover:text-red-800">
-            <Trash2 size={18} />
-          </button>
+        <div className="flex gap-3 justify-center">
+          <Button type="text" onClick={() => handleEdit(record)} icon={<Edit2 size={18} />} />
+          <Button danger type="text" onClick={() => handleDelete(record._id, record.title)} icon={<Trash2 size={18} />} />
         </div>
       ),
     },
@@ -220,52 +216,33 @@ const BookManagementPage = () => {
           <Breadcrumb
             items={[
               { title: "Trang chủ" },
-              { title: "Quản lý" },
-              { title: "Sách" },
+              { title: "Quản lý Sách" },
             ]}
           />
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between  gap-4 bg-white border rounded-lg shadow-sm px-5 py-4">
-          <div>
-            <h1 className="text-3xl font-bold flex items-center gap-2">
-              <span className="text-blue-600">📘</span> Quản Lý Sách
-            </h1>
-            <p className="text-gray-500 text-sm mt-1">Quản lý thông tin sách trong hệ thống</p>
-          </div>
-
-          <button
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm transition-all"
+          <Input
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+            placeholder="Tìm kiếm theo tên, tác giả, ISBN, thể loại..."
+            allowClear
+            prefix={<Search size={16} className="text-gray-500" />}
+            className="shadow-sm"
+          />
+          <Button
+            type="primary"
+            icon={<Plus size={18} />}
+            className="flex items-center gap-2 text-nowrap"
             onClick={() => {
               setIsModalOpen(true);
               setEditingBook(null);
             }}
           >
-            <Plus size={18} /> Thêm Sách Mới
-          </button>
-        </div>
-
-        {/* Search & Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
-          <div className="md:col-span-2">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setCurrentPage(1);
-              }}
-              placeholder="🔍 Tìm kiếm theo tên, tác giả, ISBN, thể loại..."
-              className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white shadow-sm"
-            />
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <p className="text-gray-500 text-sm">Tổng số sách</p>
-            <p className="text-2xl font-bold">{totalBooks}</p>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <p className="text-gray-500 text-sm">Tổng số lượng</p>
-            <p className="text-2xl font-bold">{totalstock}</p>
-          </div>
+            Thêm Sách Mới
+          </Button>
         </div>
 
         {/* Table */}
