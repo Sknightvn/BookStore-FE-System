@@ -8,7 +8,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
   const [searchTerm, setSearchTerm] = useState("")
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center  gap-4 border-b bg-white px-4 md:px-4">
       <button
         className="md:hidden rounded-md border p-2 hover:bg-gray-100"
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -28,7 +28,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
         />
       </div> */}
 
-      <div className="ml-auto flex items-center gap-4">
+      <div className="ml-auto flex items-center  gap-4">
         {/* <button className="relative rounded-md border p-2 hover:bg-gray-100">
           <Bell className="h-5 w-5" />
           <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] text-white">

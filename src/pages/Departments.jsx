@@ -120,7 +120,7 @@ function Departments() {
       </div>
 
       <Card>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col  gap-4">
           <div className="relative w-full sm:w-64">
             <Input
               type="search"

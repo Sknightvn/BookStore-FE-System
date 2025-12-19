@@ -53,7 +53,7 @@ export function RecentActivity() {
   return (
     <div className="space-y-4">
       {activities.map((activity) => (
-        <div key={activity._id} className="flex items-center gap-4">
+        <div key={activity._id} className="flex items-center  gap-4">
           <Avatar
             src={activity.user?.avatar}
             alt={activity.user?.name || "User"}

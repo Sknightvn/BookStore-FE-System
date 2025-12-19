@@ -80,7 +80,7 @@ function Dashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid  gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="flex flex-col">
           <div className="flex flex-row items-center justify-between pb-2">
             <h3 className="text-sm font-medium">Tổng nhân viên</h3>
@@ -120,7 +120,7 @@ function Dashboard() {
         </Card> */}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4" title="Tổng quan" description="Số lượng sản phẩm theo loại">
           <div className="h-80">
             <BarChart data={chartData} />

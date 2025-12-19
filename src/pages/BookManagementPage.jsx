@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Plus, Edit2, Trash2 } from "lucide-react";
-import { Modal, message } from "antd";
+import { Modal, message, Table, Breadcrumb } from "antd";
 import AddBookModal from "./AddBookModal";
 import EditBookModal from "./EditBookModal";
 const API_URL = import.meta.env.VITE_API_URL || "https://bookstore-be-b450.onrender.com/api";
@@ -18,15 +18,33 @@ const BookManagementPage = () => {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 10;
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 9,
+    totalPages: 1,
+    total: 0,
+  });
 
   // fetch all books
-  const fetchBooks = async () => {
+  const fetchBooks = async (page = 1, pageSize = pagination.limit) => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/books`);
+      const res = await axios.get(`${API_URL}/books`, {
+        params: {
+          page,
+          limit: pageSize,
+        },
+      });
       if (res.data && res.data.success) {
         setBooks(res.data.data);
+        const paging = res.data.pagination || {};
+        setPagination((prev) => ({
+          ...prev,
+          ...paging,
+          limit: paging.limit || pageSize || prev.limit,
+          page: paging.page || page,
+        }));
+        setCurrentPage(paging.page || page);
       } else {
         setBooks(res.data.data || res.data || []);
       }
@@ -53,16 +71,109 @@ const BookManagementPage = () => {
     );
   });
 
-  const totalBooks = books.length;
+  const totalBooks = pagination.total || books.length;
   const totalstock = books.reduce((sum, b) => sum + (b.stock || 0), 0);
 
-  // pagination logic
-  const totalPages = Math.max(1, Math.ceil(filteredBooks.length / booksPerPage));
-  const startIndex = (currentPage - 1) * booksPerPage;
-  const currentBooks = filteredBooks.slice(startIndex, startIndex + booksPerPage);
+  const isSearching = search.trim().length > 0;
+  const displayBooks = isSearching ? filteredBooks : books;
+  const displayTotal = isSearching ? filteredBooks.length : pagination.total || filteredBooks.length;
+  const baseIndex = isSearching ? 0 : (pagination.page - 1) * (pagination.limit || displayBooks.length);
 
-  const handlePrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
-  const handleNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
+  const columns = [
+    {
+      title: "#",
+      dataIndex: "_id",
+      width: 70,
+      render: (_value, _record, index) => `#${baseIndex + index + 1}`,
+    },
+    {
+      title: "ISBN",
+      dataIndex: "ISSN",
+      render: (value) => value || "-",
+    },
+    {
+      title: "Tên Sách",
+      dataIndex: "title",
+      render: (value) => <span className="font-semibold text-blue-700">{value}</span>,
+    },
+    {
+      title: "Tác Giả",
+      dataIndex: "author",
+      render: (value) => value || "—",
+    },
+    {
+      title: "Thể Loại",
+      dataIndex: ["category", "name"],
+      render: (value) => value || "Chưa phân loại",
+    },
+    {
+      title: "Năm SX",
+      dataIndex: "publishYear",
+      render: (value) => value || "-",
+    },
+    {
+      title: "Tập Sách",
+      dataIndex: "volume",
+      render: (value) => (value ? `Tập ${value}` : "Không có"),
+    },
+    {
+      title: "Số Trang",
+      dataIndex: "pages",
+      render: (value) => value || "-",
+    },
+    {
+      title: "Giá Bán",
+      dataIndex: "price",
+      render: (value) => (value !== undefined ? `${Number(value).toLocaleString()} ₫` : "-"),
+    },
+    {
+      title: "Số Lượng",
+      dataIndex: "stock",
+      render: (value) => {
+        const qty = value || 0;
+        const tone =
+          qty > 40 ? "bg-green-100 text-green-700" : qty > 20 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700";
+        return <span className={`px-2 py-1 text-sm rounded-full ${tone}`}>{qty}</span>;
+      },
+    },
+    {
+      title: "Ảnh",
+      dataIndex: "coverImage",
+      align: "center",
+      render: (url, record) =>
+        url ? (
+          <img src={url} alt={record.title} className="w-12 h-16 object-cover rounded-md border inline-block shadow-sm" />
+        ) : (
+          <div className="w-12 h-16 bg-gray-200 rounded-md flex items-center justify-center text-gray-500 text-sm mx-auto">N/A</div>
+        ),
+    },
+    {
+      title: "Hành Động",
+      dataIndex: "_id",
+      width: 120,
+      align: "center",
+      render: (_value, record) => (
+        <div className="flex gap-4 justify-center">
+          <button onClick={() => handleEdit(record)} className="text-blue-600 hover:text-blue-800">
+            <Edit2 size={18} />
+          </button>
+          <button onClick={() => handleDelete(record._id, record.title)} className="text-red-600 hover:text-red-800">
+            <Trash2 size={18} />
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  const handleTableChange = (pager) => {
+    const { current, pageSize } = pager;
+    if (isSearching) {
+      setCurrentPage(current);
+      setPagination((prev) => ({ ...prev, limit: pageSize }));
+      return;
+    }
+    fetchBooks(current, pageSize);
+  };
 
   // delete book
   const handleDelete = (bookId, title) => {
@@ -78,7 +189,7 @@ const BookManagementPage = () => {
           const res = await axios.put(`${API_URL}/books/${bookId}`);
           if (res.data && res.data.success) {
             message.success("Đã xóa sách thành công!");
-            fetchBooks();
+            fetchBooks(currentPage);
           } else {
             message.error(res.data?.message || "Xóa thất bại!");
           }
@@ -104,21 +215,26 @@ const BookManagementPage = () => {
     );
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      {/* Header */}
-      <div className="sticky top-0 bg-gray-50 pb-4 z-10">
-        <div className="flex items-center justify-between mb-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="space-y-4">
+          <Breadcrumb
+            items={[
+              { title: "Trang chủ" },
+              { title: "Quản lý" },
+              { title: "Sách" },
+            ]}
+          />
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between  gap-4 bg-white border rounded-lg shadow-sm px-5 py-4">
           <div>
             <h1 className="text-3xl font-bold flex items-center gap-2">
               <span className="text-blue-600">📘</span> Quản Lý Sách
             </h1>
-            <p className="text-gray-500 text-sm mt-1">
-              Quản lý thông tin sách trong hệ thống
-            </p>
+            <p className="text-gray-500 text-sm mt-1">Quản lý thông tin sách trong hệ thống</p>
           </div>
 
           <button
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm transition-all"
             onClick={() => {
               setIsModalOpen(true);
               setEditingBook(null);
@@ -128,158 +244,56 @@ const BookManagementPage = () => {
           </button>
         </div>
 
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setCurrentPage(1);
-          }}
-          placeholder="🔍 Tìm kiếm theo tên, tác giả, ISBN, thể loại..."
-          className="w-full border rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-
-        <div className="grid grid-cols-3 gap-4 mb-4">
+        {/* Search & Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
+          <div className="md:col-span-2">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
+              placeholder="🔍 Tìm kiếm theo tên, tác giả, ISBN, thể loại..."
+              className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white shadow-sm"
+            />
+          </div>
           <div className="bg-white p-4 rounded-lg shadow-sm border">
             <p className="text-gray-500 text-sm">Tổng số sách</p>
             <p className="text-2xl font-bold">{totalBooks}</p>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <p className="text-gray-500 text-sm">Kết quả tìm kiếm</p>
-            <p className="text-2xl font-bold">{filteredBooks.length}</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow-sm border">
             <p className="text-gray-500 text-sm">Tổng số lượng</p>
             <p className="text-2xl font-bold">{totalstock}</p>
           </div>
         </div>
-      </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-lg shadow-sm border overflow-x-auto max-h-[70vh] overflow-y-auto">
-        <table className="w-full border-collapse min-w-[1100px]">
-          <thead className="sticky top-0 bg-gray-100 z-10">
-            <tr className="text-gray-700">
-              <th className="p-3 text-left w-16">#</th>
-              <th className="p-3 text-left">ISBN</th>
-              <th className="p-3 text-left">Tên Sách</th>
-              <th className="p-3 text-left">Tác Giả</th>
-              <th className="p-3 text-left">Thể Loại</th>
-              <th className="p-3 text-left">Năm SX</th>
-              <th className="p-3 text-left">Tập Sách</th>
-              <th className="p-3 text-left">Số Trang</th>
-              <th className="p-3 text-left">Giá Bán</th>
-              <th className="p-3 text-left">Số Lượng</th>
-              <th className="p-3 text-center">Ảnh</th>
-              <th className="p-3 text-center">Hành Động</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentBooks.map((book, index) => (
-              <tr
-                key={book._id}
-                className={`border-t ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
-              >
-                <td className="p-3 font-semibold text-gray-700">
-                  #{startIndex + index + 1}
-                </td>
-                <td className="p-3 text-gray-700">{book.ISSN || "-"}</td>
-                <td className="p-3 font-medium text-blue-700">{book.title}</td>
-                <td className="p-3">{book.author}</td>
-                <td className="p-3">{book.category?.name || "Chưa phân loại"}</td>
-                <td className="p-3">{book.publishYear || "-"}</td>
-                <td className="p-3">{book.volume ? `Tập ${book.volume}` : "Không có"}</td> {/* ✅ hiển thị tập */}
-                <td className="p-3">{book.pages || "-"}</td>
-                <td className="p-3 font-semibold text-gray-800">
-                  {book.price?.toLocaleString()} ₫
-                </td>
-                <td className="p-3">
-                  <span
-                    className={`px-2 py-1 text-sm rounded-full ${(book.stock || 0) > 40
-                        ? "bg-green-100 text-green-700"
-                        : (book.stock || 0) > 20
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                  >
-                    {book.stock || 0}
-                  </span>
-                </td>
-                <td className="p-3 text-center">
-                  {book.coverImage ? (
-                    <img
-                      src={book.coverImage}
-                      alt={book.title}
-                      className="w-12 h-16 object-cover rounded-md border inline-block"
-                    />
-                  ) : (
-                    <div className="w-12 h-16 bg-gray-200 rounded-md flex items-center justify-center text-gray-500 text-sm mx-auto">
-                      N/A
-                    </div>
-                  )}
-                </td>
-                <td className="p-3 text-center flex gap-3 justify-center">
-                  <button
-                    onClick={() => handleEdit(book)}
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    <Edit2 size={18} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(book._id, book.title)}
-                    className="text-red-600 hover:text-red-800"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </td>
-              </tr>
-            ))}
-
-            {currentBooks.length === 0 && (
-              <tr>
-                <td colSpan="12" className="text-center py-6 text-gray-500">
-                  Không tìm thấy sách nào phù hợp.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t bg-gray-50 sticky bottom-0">
-            <button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className={`px-4 py-2 rounded-md border ${currentPage === 1
-                  ? "text-gray-400 border-gray-200 cursor-not-allowed"
-                  : "text-blue-600 border-blue-300 hover:bg-blue-50"
-                }`}
-            >
-              « Trước
-            </button>
-            <span className="text-gray-700">
-              Trang {currentPage} / {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`px-4 py-2 rounded-md border ${currentPage === totalPages
-                  ? "text-gray-400 border-gray-200 cursor-not-allowed"
-                  : "text-blue-600 border-blue-300 hover:bg-blue-50"
-                }`}
-            >
-              Sau »
-            </button>
-          </div>
-        )}
+        {/* Table */}
+        <div className="bg-white rounded-lg shadow-sm border p-2">
+          <Table
+            columns={columns}
+            dataSource={displayBooks}
+            rowKey="_id"
+            loading={loading}
+            pagination={{
+              current: isSearching ? 1 : pagination.page,
+              pageSize: pagination.limit,
+              total: displayTotal,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "9", "10", "20", "50"],
+              showTotal: (total, range) => `${range[0]}-${range[1]} trong ${total} sách`,
+            }}
+            onChange={handleTableChange}
+            scroll={{ x: 1100 }}
+          />
+        </div>
       </div>
 
       {/* Modals */}
       <AddBookModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onBookAdded={fetchBooks}
+        onBookAdded={() => fetchBooks(currentPage)}
       />
 
       <EditBookModal
@@ -289,7 +303,7 @@ const BookManagementPage = () => {
           setEditingBook(null);
         }}
         book={editingBook}
-        onBookUpdated={fetchBooks}
+        onBookUpdated={() => fetchBooks(currentPage)}
       />
     </div>
   );

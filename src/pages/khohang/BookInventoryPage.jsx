@@ -58,20 +58,20 @@ export default function BookInventoryPage() {
   const getStatusTag = (quantity) => {
     if (quantity >= 10) {
       return (
-        <Tag icon={<CheckCircleOutlined />} color="success" className="rounded-full px-3">
+        <Tag icon={<CheckCircleOutlined />} color="success" className="rounded-full px-4">
           Còn hàng
         </Tag>
       )
     }
     if (quantity > 0) {
       return (
-        <Tag icon={<WarningOutlined />} color="warning" className="rounded-full px-3">
+        <Tag icon={<WarningOutlined />} color="warning" className="rounded-full px-4">
           Sắp hết
         </Tag>
       )
     }
     return (
-      <Tag icon={<InboxOutlined />} color="error" className="rounded-full px-3">
+      <Tag icon={<InboxOutlined />} color="error" className="rounded-full px-4">
         Hết hàng
       </Tag>
     )
@@ -155,9 +155,9 @@ export default function BookInventoryPage() {
     <div className="min-h-screen bg-[#fafafa]">
       <div className="max-w-[95%] mx-auto space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between  gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center gap-3">
+            <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center gap-4">
               <BookOutlined className="text-primary" />
               Quản Lý Kho Sách
             </h1>
@@ -168,7 +168,7 @@ export default function BookInventoryPage() {
               type="default"
               size="large"
               icon={<InboxOutlined />}
-              className="h-12 px-6 text-base font-semibold"
+              className="h-12 px-4 text-base font-semibold"
               onClick={() => navigate("/warehouseListPage")}
             >
               Danh Sách Phiếu Nhập
@@ -178,7 +178,7 @@ export default function BookInventoryPage() {
               type="primary"
               size="large"
               icon={<PlusOutlined />}
-              className="bg-primary hover:bg-accent h-12 px-6 text-base font-semibold"
+              className="bg-primary hover:bg-accent h-12 px-4 text-base font-semibold"
               onClick={() => navigate("/importBookPage")}
             >
               Nhập Hàng
@@ -232,7 +232,7 @@ export default function BookInventoryPage() {
         {/* Search & Filter */}
         <Card>
           <Space direction="vertical" size="middle" className="w-full">
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row  gap-4">
               <Search
                 placeholder="Tìm theo mã ISSN, tên sách hoặc tập..."
                 allowClear

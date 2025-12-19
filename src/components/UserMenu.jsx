@@ -45,20 +45,20 @@ function UserMenu() {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-56 rounded-md border bg-white shadow-lg">
           <div className="p-2">
-            <div className="px-3 py-2">
+            <div className="px-4 py-2">
               <p className="text-sm font-medium">{userName}</p>
               <p className="text-xs text-gray-500">{userEmail}</p>
             </div>
             <div className="h-px bg-gray-200 my-1"></div>
             <button
-              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+              className="flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm hover:bg-gray-100"
               onClick={() => navigate("/profile")}
             >
               <User className="h-4 w-4" />
               <span>Hồ sơ</span>
             </button>
             <button
-              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+              className="flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm hover:bg-gray-100"
               onClick={() => navigate("/settings")}
             >
               <Settings className="h-4 w-4" />
@@ -66,7 +66,7 @@ function UserMenu() {
             </button>
             <div className="h-px bg-gray-200 my-1"></div>
             <button
-              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+              className="flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm hover:bg-gray-100"
               onClick={handleLogout}
             >
               <LogOut className="h-4 w-4" />

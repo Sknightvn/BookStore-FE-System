@@ -95,7 +95,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl p-6 relative animate-fadeIn">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl p-4 relative animate-fadeIn">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -110,7 +110,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
 
         {message && (
           <div
-            className={`p-3 mb-4 text-center rounded-lg ${message.type === "success"
+            className={`p-4 mb-4 text-center rounded-lg ${message.type === "success"
                 ? "bg-green-50 text-green-700"
                 : "bg-red-50 text-red-700"
               }`}
@@ -121,7 +121,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title + Author */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2  gap-4">
             <input
               type="text"
               name="title"
@@ -143,7 +143,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
           </div>
 
           {/* ISSN + Category */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2  gap-4">
             <input
               type="text"
               name="ISSN"
@@ -169,7 +169,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
             </select>
           </div>
           {/* Volume (Tập sách) */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2  gap-4">
             <select
               name="volume"
               value={formData.volume}
@@ -186,7 +186,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
           </div>
 
           {/* Price + Year + Pages */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3  gap-4">
             <input
               type="number"
               name="price"
@@ -244,7 +244,7 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }) {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-3 pt-2">
+          <div className="flex justify-end gap-4 pt-2">
             <button
               type="button"
               onClick={onClose}

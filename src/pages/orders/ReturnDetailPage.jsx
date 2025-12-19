@@ -152,7 +152,7 @@ const ReturnDetailPage = () => {
   if (!order) return <div className="min-h-screen flex justify-center items-center">Không tìm thấy yêu cầu hoàn trả</div>;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-6">
+    <div className="max-w-7xl mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Chi tiết hoàn trả</h1>
         <Button onClick={() => navigate(-1)}>Quay lại</Button>
@@ -187,7 +187,7 @@ const ReturnDetailPage = () => {
             {order.images?.length > 0 && (
               <div className="mt-4">
                 <h3 className="font-semibold mb-2">Ảnh minh họa sản phẩm lỗi</h3>
-                <div className="flex gap-4 flex-wrap">
+                <div className="flex  gap-4 flex-wrap">
                   {order.images.map((img, idx) => (
                     <img
                       key={idx}
@@ -202,7 +202,7 @@ const ReturnDetailPage = () => {
             )}
 
             {(order.status === "pending" || order.status === "accepted" || order.status === "checking") && (
-              <div className="flex gap-4 mt-4">
+              <div className="flex  gap-4 mt-4">
                 <Button type="primary" onClick={handleAccept} loading={updating}>
                   {order.status === "accepted" ? "Chấp nhận hoàn trả" : "Tiếp nhận yêu cầu"}
                 </Button>

@@ -62,7 +62,7 @@ function Customers() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col  gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full sm:w-64">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -88,19 +88,19 @@ function Customers() {
         <table className="min-w-full divide-y divide-border">
           <thead className="bg-muted/50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Khách hàng
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Địa chỉ
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Ngày đăng ký
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Trạng thái
               </th>
-              {/* <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {/* <th className="px-4 py-4 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Thao tác
               </th> */}
             </tr>
@@ -108,20 +108,20 @@ function Customers() {
           <tbody className="divide-y divide-border bg-background">
             {isLoading ? (
               <tr>
-                <td colSpan={6} className="px-6 py-4 text-center text-sm text-muted-foreground">
+                <td colSpan={6} className="px-4 py-4 text-center text-sm text-muted-foreground">
                   Đang tải dữ liệu...
                 </td>
               </tr>
             ) : filteredCustomers.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-6 py-4 text-center text-sm text-muted-foreground">
+                <td colSpan={6} className="px-4 py-4 text-center text-sm text-muted-foreground">
                   Không tìm thấy khách hàng nào.
                 </td>
               </tr>
             ) : (
               filteredCustomers.map((customer) => (
                 <tr key={customer._id} className="hover:bg-muted/50">
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="h-10 w-10 flex-shrink-0 rounded-full overflow-hidden">
                         {customer.avatar ? (
@@ -149,16 +149,16 @@ function Customers() {
                     </div>
                   </td>
 
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground max-w-xs truncate">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground max-w-xs truncate">
                     {/* Access the first address if available */}
                     {customer.address && customer.address.length > 0
                       ? `${customer.address[0].street}, ${customer.address[0].ward}, ${customer.address[0].district}, ${customer.address[0].city}`
                       : "Chưa cập nhật"}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">
                     {new Date(customer.createdAt).toLocaleDateString("vi-VN")}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
                         customer.isActive
@@ -169,7 +169,7 @@ function Customers() {
                       {customer.isActive ? "Đang hoạt động" : "Không hoạt động"}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="relative">
                       {/* <button
                         className="text-muted-foreground hover:text-foreground"

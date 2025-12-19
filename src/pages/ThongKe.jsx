@@ -193,7 +193,7 @@ export default function Home() {
   const topCustomers = stats.topCustomers || [];
 
   const StatCard = ({ title, value, change, bgColor }) => (
-    <div className={`${bgColor} rounded-lg p-6 text-white`}>
+    <div className={`${bgColor} rounded-lg p-4 text-white`}>
       <p className="text-sm font-medium opacity-90">{title}</p>
       <p className="text-3xl font-bold mt-2">{value}</p>
       <p className="text-xs mt-3 opacity-75">{change}</p>
@@ -201,7 +201,7 @@ export default function Home() {
   );
 
   const BarChart = ({ data, maxValue, color }) => (
-    <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="bg-white border border-gray-200 rounded-lg p-4">
       <h3 className="text-lg font-semibold text-gray-800 mb-6">Sản Phẩm Bán Chạy Nhất</h3>
       <div className="space-y-4">
         {data.map((item, idx) => {
@@ -232,7 +232,7 @@ export default function Home() {
     const colors = ["#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6"];
 
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg p-4">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Tỷ Lệ Bán Sản Phẩm</h3>
         <svg viewBox="0 0 200 200" className="w-full max-w-xs mx-auto mb-4">
           {data.map((item, idx) => {
@@ -266,26 +266,26 @@ export default function Home() {
   };
 
   const CustomerTable = ({ data }) => (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 mt-8 overflow-x-auto">
+    <div className="bg-white border border-gray-200 rounded-lg p-4 mt-8 overflow-x-auto">
       <h3 className="text-lg font-semibold text-gray-800 mb-4">Thống Kê Khách Hàng</h3>
       <table className="w-full text-sm">
         <thead className="border-b border-gray-300">
           <tr className="text-gray-600 font-semibold">
-            <th className="text-left py-3 px-4">Tên Khách Hàng</th>
-            <th className="text-left py-3 px-4">Email</th>
-            <th className="text-left py-3 px-4">Số Điện Thoại</th>
-            <th className="text-center py-3 px-4">Số Đơn Mua</th>
-            <th className="text-right py-3 px-4">Tổng Chi Tiêu</th>
+            <th className="text-left py-4 px-4">Tên Khách Hàng</th>
+            <th className="text-left py-4 px-4">Email</th>
+            <th className="text-left py-4 px-4">Số Điện Thoại</th>
+            <th className="text-center py-4 px-4">Số Đơn Mua</th>
+            <th className="text-right py-4 px-4">Tổng Chi Tiêu</th>
           </tr>
         </thead>
         <tbody>
           {data.map((customer, idx) => (
             <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
-              <td className="py-3 px-4 font-medium text-gray-900">{customer.name || "Ẩn danh"}</td>
-              <td className="py-3 px-4 text-gray-600">{customer.email}</td>
-              <td className="py-3 px-4 text-gray-600">{customer.phone || "Không có"}</td>
-              <td className="py-3 px-4 text-center text-gray-700">{customer.ordersCount}</td>
-              <td className="py-3 px-4 text-right font-semibold text-gray-900">
+              <td className="py-4 px-4 font-medium text-gray-900">{customer.name || "Ẩn danh"}</td>
+              <td className="py-4 px-4 text-gray-600">{customer.email}</td>
+              <td className="py-4 px-4 text-gray-600">{customer.phone || "Không có"}</td>
+              <td className="py-4 px-4 text-center text-gray-700">{customer.ordersCount}</td>
+              <td className="py-4 px-4 text-right font-semibold text-gray-900">
                 ₫ {customer.totalSpent.toLocaleString()}
               </td>
             </tr>
@@ -296,7 +296,7 @@ export default function Home() {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 relative">
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 relative">
       {loading && (
         <div className="absolute inset-0 bg-white/70 flex items-center justify-center text-gray-700 font-medium z-10">
           Đang tải dữ liệu...
@@ -312,7 +312,7 @@ export default function Home() {
           </div>
 
           {/* Bộ lọc ngày bên phải */}
-          <div className="flex items-center gap-3 mt-4 md:mt-0">
+          <div className="flex items-center gap-4 mt-4 md:mt-0">
             <DatePicker
               value={startDate}
               onChange={(date) => setStartDate(date)}
@@ -341,7 +341,7 @@ export default function Home() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4 mb-8">
           <StatCard
             title="Tổng Doanh Thu"
             value={`₫ ${totalRevenue.toLocaleString()}`}
@@ -369,7 +369,7 @@ export default function Home() {
         </div>
 
         {/* Charts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
           <div className="lg:col-span-2">
             <BarChart data={booksData} maxValue={maxSales} color="bg-blue-500" />
           </div>

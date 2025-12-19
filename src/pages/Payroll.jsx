@@ -159,7 +159,7 @@
 //       </div>
 
 //       <div className="space-y-4">
-//         <div className="flex flex-col gap-4 sm:flex-row">
+//         <div className="flex flex-col  gap-4 sm:flex-row">
 //           <Select
 //             options={months}
 //             value={month}
@@ -388,14 +388,14 @@ function Payroll() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-4 rounded-lg flex items-center">
           <AlertCircle className="h-5 w-5 mr-2" />
           <span>{error}</span>
         </div>
       )}
 
       <div className="space-y-4">
-        <div className="flex flex-col gap-4 sm:flex-row">
+        <div className="flex flex-col  gap-4 sm:flex-row">
           <Select
             options={months}
             value={month}
@@ -444,55 +444,55 @@ function Payroll() {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Kỳ lương
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Nhân viên
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Phòng ban
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Lương cơ bản
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Phụ cấp
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Khấu trừ
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Thực lãnh
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Trạng thái
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-4 py-4 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Thao tác
               </th>
@@ -501,13 +501,13 @@ function Payroll() {
           <tbody className="divide-y divide-gray-200 bg-white">
             {isLoading ? (
               <tr>
-                <td colSpan={9} className="px-6 py-4 text-center text-sm text-gray-500">
+                <td colSpan={9} className="px-4 py-4 text-center text-sm text-gray-500">
                   Đang tải dữ liệu...
                 </td>
               </tr>
             ) : filteredPayrolls.length === 0 ? (
               <tr>
-                <td colSpan={9} className="px-6 py-4 text-center text-sm text-gray-500">
+                <td colSpan={9} className="px-4 py-4 text-center text-sm text-gray-500">
                   Không có dữ liệu lương cho kỳ này.
                 </td>
               </tr>
@@ -516,29 +516,29 @@ function Payroll() {
                 const period = `${payroll.period?.month || "-"}/${payroll.period?.year || "-"}`
                 return (
                   <tr key={payroll._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{period}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{period}</td>
+                    <td className="px-4 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         {payroll.employee?.firstName} {payroll.employee?.lastName}
                       </div>
                       <div className="text-xs text-gray-500">ID: {payroll.employee?.employeeId}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       {payroll.employee?.department?.name || "-"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       {formatCurrency(payroll.salary?.baseSalary || 0)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       {formatCurrency(payroll.totalAllowances || 0)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       {formatCurrency(payroll.totalDeductions || 0)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {formatCurrency(payroll.netSalary || 0)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-4 whitespace-nowrap">
                       <span
                         className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
                           payroll.status === "draft"
@@ -563,7 +563,7 @@ function Payroll() {
                                 : "Chờ duyệt"}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="relative">
                         <button
                           className="text-gray-500 hover:text-gray-700"

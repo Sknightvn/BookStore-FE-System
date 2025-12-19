@@ -138,32 +138,32 @@ function DetailOrders() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-10xl mx-auto space-y-6">
         {/* Tiêu đề */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="bg-white rounded-lg shadow-sm p-4 border">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Quản lý Đơn hàng</h1>
           <p className="text-gray-600">Theo dõi và quản lý tất cả đơn hàng của khách hàng</p>
         </div>
 
         {/* Bộ lọc + tìm kiếm */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <div className="bg-white rounded-lg shadow-sm p-4 border">
+          <div className="flex flex-col sm:flex-row  gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="search"
                 placeholder="Tìm kiếm theo mã đơn hàng hoặc tên khách hàng..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <div className="relative">
                 <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-w-[160px] appearance-none cursor-pointer"
+                  className="pl-10 pr-8 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-w-[160px] appearance-none cursor-pointer"
                 >
                   <option value="all">Tất cả trạng thái</option>
                   <option value="pending">Chờ xử lý</option>
@@ -177,7 +177,7 @@ function DetailOrders() {
               <select
                 value={returnFilter}
                 onChange={(e) => setReturnFilter(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-w-[140px] appearance-none cursor-pointer"
+                className="px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-w-[140px] appearance-none cursor-pointer"
               >
                 <option value="all">Tất cả hoàn trả</option>
                 <option value="none">Không hoàn trả</option>
@@ -195,20 +195,20 @@ function DetailOrders() {
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã đơn hàng</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Khách hàng</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ngày đặt</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tổng tiền</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Trạng thái</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Hoàn trả</th>
-                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Thao tác</th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã đơn hàng</th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Khách hàng</th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ngày đặt</th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tổng tiền</th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Trạng thái</th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Hoàn trả</th>
+                  <th className="px-4 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Thao tác</th>
                 </tr>
               </thead>
 
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredOrders.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500">Không có đơn hàng</td>
+                    <td colSpan={7} className="px-4 py-12 text-center text-gray-500">Không có đơn hàng</td>
                   </tr>
                 ) : (
                   filteredOrders.map((order) => {
@@ -223,38 +223,38 @@ function DetailOrders() {
                         onClick={() => navigate(`/orders/${order._id}`)}
                         className="hover:bg-gray-50 transition-colors duration-150 cursor-pointer"
                       >
-                        <td className="px-6 py-4 whitespace-nowrap">{order.orderId}</td>
+                        <td className="px-4 py-4 whitespace-nowrap">{order.orderId}</td>
 
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-4 py-4 whitespace-nowrap">
                           <div className="font-medium text-gray-900">{order.customerName}</div>
                           <div className="text-sm text-gray-500">{order.customerEmail}</div>
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-4 py-4 whitespace-nowrap">
                           {new Date(order.orderDate).toLocaleDateString("vi-VN")}
                           {canReturn && (
                             <div className="text-xs text-green-600 font-medium mt-1">✓ Có thể hoàn trả</div>
                           )}
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap font-semibold">
+                        <td className="px-4 py-4 whitespace-nowrap font-semibold">
                           {formatCurrency(order.totalAmount)}
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${statusInfo.className}`}>
+                        <td className="px-4 py-4 whitespace-nowrap">
+                          <span className={`inline-flex px-4 py-1 rounded-full text-xs font-medium ${statusInfo.className}`}>
                             <StatusIcon className="w-3 h-3 mr-1" /> {statusInfo.label}
                           </span>
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${getReturnStatusInfo(order).className}`}>
+                        <td className="px-4 py-4 whitespace-nowrap text-sm">
+                          <span className={`px-4 py-1 rounded-full text-xs font-medium ${getReturnStatusInfo(order).className}`}>
                             {getReturnStatusInfo(order).label}
                           </span>
                         </td>
 
                         <td
-                          className="px-6 py-4 whitespace-nowrap text-center"
+                          className="px-4 py-4 whitespace-nowrap text-center"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <div className="relative">

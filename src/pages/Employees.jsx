@@ -187,7 +187,7 @@ function Employees() {
       </div>
 
       {/* Thanh tìm kiếm + lọc */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col  gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full sm:w-64">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
@@ -217,26 +217,26 @@ function Employees() {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Nhân viên</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Chức vụ</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Ngày sinh</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Ngày vào làm</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Trạng thái</th>
-                <th className="px-6 py-3 text-right text-xs font-medium uppercase text-gray-500">Thao tác</th>
+                <th className="px-4 py-4 text-left text-xs font-medium uppercase text-gray-500">Nhân viên</th>
+                <th className="px-4 py-4 text-left text-xs font-medium uppercase text-gray-500">ID</th>
+                <th className="px-4 py-4 text-left text-xs font-medium uppercase text-gray-500">Chức vụ</th>
+                <th className="px-4 py-4 text-left text-xs font-medium uppercase text-gray-500">Ngày sinh</th>
+                <th className="px-4 py-4 text-left text-xs font-medium uppercase text-gray-500">Ngày vào làm</th>
+                <th className="px-4 py-4 text-left text-xs font-medium uppercase text-gray-500">Trạng thái</th>
+                <th className="px-4 py-4 text-right text-xs font-medium uppercase text-gray-500">Thao tác</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200 bg-white">
               {isLoading ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
+                  <td colSpan={7} className="px-4 py-4 text-center text-sm text-gray-500">
                     Đang tải dữ liệu...
                   </td>
                 </tr>
               ) : filteredEmployees.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
+                  <td colSpan={7} className="px-4 py-4 text-center text-sm text-gray-500">
                     Không tìm thấy nhân viên nào.
                   </td>
                 </tr>
@@ -244,7 +244,7 @@ function Employees() {
                 filteredEmployees.map((employee) => (
                   <tr key={employee._id} className="hover:bg-gray-50">
                     {/* 🧍 Thông tin nhân viên + email */}
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-4">
                       <div className="flex items-center">
                         <div className="h-10 w-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-100">
                           <img
@@ -262,21 +262,21 @@ function Employees() {
                       </div>
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-gray-500">{employee.employeeId}</td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-4 py-4 text-sm text-gray-500">{employee.employeeId}</td>
+                    <td className="px-4 py-4 text-sm text-gray-500">
                       {employee.role === "admin" ? "Quản lý" : "Nhân viên"}
                     </td>
 
                     {/* 📅 Ngày sinh */}
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-4 py-4 text-sm text-gray-500">
                       {new Date(employee.dateOfBirth).toLocaleDateString("vi-VN")}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-4 py-4 text-sm text-gray-500">
                       {new Date(employee.joinDate).toLocaleDateString("vi-VN")}
                     </td>
 
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-4">
                       <span
                         className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
                           employee.employmentStatus === "active"
@@ -288,7 +288,7 @@ function Employees() {
                       </span>
                     </td>
 
-                    <td className="px-6 py-4 text-right text-sm">
+                    <td className="px-4 py-4 text-right text-sm">
                       <button
                         className="text-red-600 hover:text-red-800"
                         onClick={() => handleDeleteEmployee(employee._id)}
@@ -309,7 +309,7 @@ function Employees() {
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex min-h-screen items-center justify-center px-4 py-8">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75" onClick={() => setShowAddModal(false)}></div>
-            <div className="relative bg-white rounded-lg shadow-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="relative bg-white rounded-lg shadow-xl p-4 w-full max-w-lg max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center border-b pb-3">
                 <h3 className="text-lg font-semibold">Thêm nhân viên mới</h3>
                 <button onClick={() => setShowAddModal(false)}>
@@ -339,7 +339,7 @@ function Employees() {
                   <p className="text-xs text-gray-500">Nếu bỏ trống, sẽ sử dụng avatar mặc định</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
                       Họ <span className="text-red-500">*</span>
@@ -348,7 +348,7 @@ function Employees() {
                       name="lastName"
                       value={newEmployee.lastName}
                       onChange={handleInputChange}
-                      className={`w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         formErrors.lastName ? "border-red-500" : "border-gray-300"
                       }`}
                     />
@@ -362,7 +362,7 @@ function Employees() {
                       name="firstName"
                       value={newEmployee.firstName}
                       onChange={handleInputChange}
-                      className={`w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         formErrors.firstName ? "border-red-500" : "border-gray-300"
                       }`}
                     />
@@ -379,7 +379,7 @@ function Employees() {
                     name="email"
                     value={newEmployee.email}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.email ? "border-red-500" : "border-gray-300"
                     }`}
                   />
@@ -395,7 +395,7 @@ function Employees() {
                     name="phone"
                     value={newEmployee.phone}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.phone ? "border-red-500" : "border-gray-300"
                     }`}
                   />
@@ -410,7 +410,7 @@ function Employees() {
                     name="gender"
                     value={newEmployee.gender}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="male">Nam</option>
                     <option value="female">Nữ</option>
@@ -428,7 +428,7 @@ function Employees() {
                     value={newEmployee.dateOfBirth}
                     onChange={handleInputChange}
                     max={new Date().toISOString().split("T")[0]}
-                    className={`w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.dateOfBirth ? "border-red-500" : "border-gray-300"
                     }`}
                   />
@@ -444,14 +444,14 @@ function Employees() {
                     name="joinDate"
                     value={newEmployee.joinDate}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       formErrors.joinDate ? "border-red-500" : "border-gray-300"
                     }`}
                   />
                   {formErrors.joinDate && <p className="text-xs text-red-500 mt-1">{formErrors.joinDate}</p>}
                 </div>
 
-                <div className="flex justify-end gap-3 mt-6 pt-4 border-t">
+                <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
                   <button
                     type="button"
                     onClick={() => setShowAddModal(false)}

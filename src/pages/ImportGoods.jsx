@@ -110,8 +110,8 @@ function ImportGoods() {
   }
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center gap-4">
+    <div className="space-y-6 p-4">
+      <div className="flex items-center  gap-4">
         <button
           onClick={handleGoBack}
           className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
@@ -127,16 +127,16 @@ function ImportGoods() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Import Information */}
-        <div className="rounded-lg border bg-card p-6">
+        <div className="rounded-lg border bg-card p-4">
           <h2 className="text-lg font-semibold mb-4">Thông tin nhập hàng</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Ngày nhập</label>
               <input
                 type="date"
                 value={importDate}
                 onChange={(e) => setImportDate(e.target.value)}
-                className="w-full rounded-md border px-3 py-2 text-sm"
+                className="w-full rounded-md border px-4 py-2 text-sm"
                 required
               />
             </div>
@@ -147,7 +147,7 @@ function ImportGoods() {
                 value={supplier}
                 onChange={(e) => setSupplier(e.target.value)}
                 placeholder="Nhập tên nhà cung cấp"
-                className="w-full rounded-md border px-3 py-2 text-sm"
+                className="w-full rounded-md border px-4 py-2 text-sm"
                 required
               />
             </div>
@@ -159,19 +159,19 @@ function ImportGoods() {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Ghi chú thêm..."
               rows={3}
-              className="w-full rounded-md border px-3 py-2 text-sm"
+              className="w-full rounded-md border px-4 py-2 text-sm"
             />
           </div>
         </div>
 
         {/* Import Items */}
-        <div className="rounded-lg border bg-card p-6">
+        <div className="rounded-lg border bg-card p-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold">Danh sách sản phẩm</h2>
             <button
               type="button"
               onClick={addImportItem}
-              className="flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-primary/90"
+              className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
             >
               <Plus className="h-4 w-4" />
               Thêm sản phẩm
@@ -266,7 +266,7 @@ function ImportGoods() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-end gap-4">
+        <div className="flex items-center justify-end  gap-4">
           <button
             type="button"
             onClick={handleGoBack}

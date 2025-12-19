@@ -10,7 +10,7 @@ function Unauthorized() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="max-w-md w-full text-center">
         <div className="flex justify-center mb-6">
-          <div className="bg-red-100 p-3 rounded-full">
+          <div className="bg-red-100 p-4 rounded-full">
             <AlertTriangle className="h-12 w-12 text-red-600" />
           </div>
         </div>

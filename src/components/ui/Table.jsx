@@ -8,7 +8,7 @@ function Table({ columns, data, emptyMessage = "Không có dữ liệu" }) {
                 <th
                   key={index}
                   scope="col"
-                  className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${
+                  className={`px-4 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${
                     column.className || ""
                   }`}
                 >
@@ -20,7 +20,7 @@ function Table({ columns, data, emptyMessage = "Không có dữ liệu" }) {
           <tbody className="bg-white divide-y divide-gray-200">
             {data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="px-6 py-4 text-center text-sm text-gray-500">
+                <td colSpan={columns.length} className="px-4 py-4 text-center text-sm text-gray-500">
                   {emptyMessage}
                 </td>
               </tr>
@@ -28,7 +28,7 @@ function Table({ columns, data, emptyMessage = "Không có dữ liệu" }) {
               data.map((row, rowIndex) => (
                 <tr key={rowIndex} className="hover:bg-gray-50">
                   {columns.map((column, colIndex) => (
-                    <td key={colIndex} className="px-6 py-4 whitespace-nowrap text-sm">
+                    <td key={colIndex} className="px-4 py-4 whitespace-nowrap text-sm">
                       {column.cell ? column.cell(row) : row[column.accessor]}
                     </td>
                   ))}

@@ -115,23 +115,24 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
       open={isOpen}
       onCancel={onClose}
       onOk={handleSubmit}
-      title="✏️ Chỉnh sửa thông tin sách"
+      title="Chỉnh sửa thông tin sách"
+      width={1000}
       okText="Lưu thay đổi"
       cancelText="Hủy"
       centered
     >
-      <div className="flex flex-col gap-3">
-        <label>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <label className="flex flex-col gap-1">
           Tên sách:
           <Input name="title" value={formData.title} onChange={handleChange} />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           Tác giả:
           <Input name="author" value={formData.author} onChange={handleChange} />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           ISBN:
           <Input
             name="ISSN"
@@ -141,7 +142,7 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
           />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           Thể loại:
           <Select
             value={formData.category}
@@ -156,7 +157,7 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
           </Select>
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           Giá:
           <InputNumber
             value={formData.price}
@@ -170,7 +171,7 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
           />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           Năm xuất bản:
           <Input
             name="publishYear"
@@ -179,12 +180,12 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
           />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           Số trang:
           <Input name="pages" value={formData.pages} onChange={handleChange} />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1">
           Tập sách:
           <Input
             name="volume"
@@ -194,7 +195,7 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
           />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1 md:col-span-2">
           Mô tả:
           <Input.TextArea
             name="description"
@@ -204,13 +205,13 @@ const EditBookModal = ({ isOpen, onClose, book, onBookUpdated }) => {
           />
         </label>
 
-        <label>
+        <label className="flex flex-col gap-1 md:col-span-2">
           Ảnh bìa:
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </label>
 
         {!newImage && formData.coverImage && (
-          <div className="mt-2">
+          <div className="mt-2 md:col-span-2">
             <p className="text-gray-600 text-sm mb-1">Ảnh hiện tại:</p>
             <img
               src={formData.coverImage}

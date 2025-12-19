@@ -52,7 +52,7 @@ function ForgotPassword() {
       </div>
 
       {/* Form quên mật khẩu bên phải */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-10">
             <div className="flex items-center justify-center lg:hidden mb-6">
@@ -64,7 +64,7 @@ function ForgotPassword() {
           </div>
 
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center">
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-4 rounded-lg flex items-center">
               <AlertCircle className="h-5 w-5 mr-2" />
               <span>{error}</span>
             </div>

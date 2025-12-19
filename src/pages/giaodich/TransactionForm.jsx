@@ -94,7 +94,7 @@ export default function TransactionForm() {
         </div>
 
         {/* Search and Filter */}
-        <div className="mb-6 flex flex-col md:flex-row gap-4">
+        <div className="mb-6 flex flex-col md:flex-row  gap-4">
           {/* Search box */}
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -125,11 +125,11 @@ export default function TransactionForm() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Mã SP</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Tên sản phẩm</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Số lượng</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Loại giao dịch</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Ngày giao dịch</th>
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-gray-900">Mã SP</th>
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-gray-900">Tên sản phẩm</th>
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-gray-900">Số lượng</th>
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-gray-900">Loại giao dịch</th>
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-gray-900">Ngày giao dịch</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -140,24 +140,24 @@ export default function TransactionForm() {
                       onClick={() => showTransactionDetails(transaction)}
                       className="hover:bg-gray-50 cursor-pointer transition-colors"
                     >
-                      <td className="px-6 py-4 text-sm text-gray-900">{transaction.book.ISSN}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{transaction.book.title}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{transaction.quantity}</td>
-                      <td className="px-6 py-4 text-sm">
+                      <td className="px-4 py-4 text-sm text-gray-900">{transaction.book.ISSN}</td>
+                      <td className="px-4 py-4 text-sm text-gray-900">{transaction.book.title}</td>
+                      <td className="px-4 py-4 text-sm text-gray-900">{transaction.quantity}</td>
+                      <td className="px-4 py-4 text-sm">
                         <span
-                          className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(transaction.transactionType)}`}
+                          className={`inline-block px-4 py-1 rounded-full text-xs font-semibold ${getTypeColor(transaction.transactionType)}`}
                         >
                           {formatTransactionType(transaction.transactionType)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-4 py-4 text-sm text-gray-600">
                         {new Date(transaction.transactionDate).toLocaleString("vi-VN")}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan="5" className="px-4 py-12 text-center text-gray-500">
                       <p className="text-lg">Không tìm thấy giao dịch nào</p>
                     </td>
                   </tr>
@@ -171,7 +171,7 @@ export default function TransactionForm() {
         {showModal && selectedTransaction && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between p-4 border-b border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-900">Chi tiết giao dịch</h2>
                 <button
                   onClick={closeModal}
@@ -182,11 +182,11 @@ export default function TransactionForm() {
               </div>
 
               {/* Modal content */}
-              <div className="p-6 space-y-6">
+              <div className="p-4 space-y-6">
                 {/* Product info */}
-                <div className="bg-gray-50 rounded-lg p-6">
+                <div className="bg-gray-50 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Thông tin sách</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2  gap-4">
                     <div>
                       <p className="text-sm text-gray-600">Mã sách</p>
                       <p className="text-lg font-semibold text-gray-900">{selectedTransaction.book.ISSN}</p>
@@ -203,9 +203,9 @@ export default function TransactionForm() {
                 </div>
 
                 {/* Transaction info */}
-                <div className="bg-gray-50 rounded-lg p-6">
+                <div className="bg-gray-50 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Thông tin giao dịch</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2  gap-4">
                     <div>
                       <p className="text-sm text-gray-600">Số lượng</p>
                       <p className="text-lg font-semibold text-gray-900">{selectedTransaction.quantity}</p>
@@ -213,7 +213,7 @@ export default function TransactionForm() {
                     <div>
                       <p className="text-sm text-gray-600">Loại giao dịch</p>
                       <p
-                        className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 ${getTypeColor(selectedTransaction.transactionType)}`}
+                        className={`inline-block px-4 py-1 rounded-full text-xs font-semibold mt-1 ${getTypeColor(selectedTransaction.transactionType)}`}
                       >
                         {formatTransactionType(selectedTransaction.transactionType)}
                       </p>
@@ -228,7 +228,7 @@ export default function TransactionForm() {
                 </div>
 
                 {/* Total */}
-                {/* <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                {/* <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                   <p className="text-sm text-blue-600 mb-2">Tổng tiền</p>
                   <p className="text-3xl font-bold text-blue-600">
                     ${(selectedTransaction.quantity * selectedTransaction.book.price).toFixed(2)}
@@ -237,7 +237,7 @@ export default function TransactionForm() {
               </div>
 
               {/* Modal footer */}
-              <div className="flex gap-3 p-6 border-t border-gray-200">
+              <div className="flex gap-4 p-4 border-t border-gray-200">
                 <button
                   onClick={closeModal}
                   className="flex-1 px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors"

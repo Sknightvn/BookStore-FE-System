@@ -42,15 +42,15 @@ function Settings() {
             label: "Thông tin công ty",
             content: (
               <Card>
-                <div className="grid gap-6">
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="grid gap-4">
+                  <div className="grid grid-cols-1  gap-4 md:grid-cols-2">
                     <Input label="Tên công ty" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
                     <Input label="Mã số thuế" value={taxCode} onChange={(e) => setTaxCode(e.target.value)} />
                   </div>
 
                   <Input label="Địa chỉ" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} />
 
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1  gap-4 md:grid-cols-2">
                     <Input
                       label="Số điện thoại"
                       value={companyPhone}
@@ -76,8 +76,8 @@ function Settings() {
             label: "Cài đặt lương",
             content: (
               <Card>
-                <div className="grid gap-6">
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="grid gap-4">
+                  <div className="grid grid-cols-1  gap-4 md:grid-cols-3">
                     <Input
                       label="Số ngày công chuẩn"
                       type="number"
@@ -112,7 +112,7 @@ function Settings() {
             label: "Thông báo",
             content: (
               <Card>
-                <div className="grid gap-6">
+                <div className="grid gap-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-medium">Thông báo qua email</h3>

@@ -12,7 +12,7 @@ function Input({ label, id, error, className = "", type = "text", icon, ...props
             id={id}
             type={type}
             className={`
-              w-full rounded-md border border-gray-300 py-2 px-3 
+              w-full rounded-md border border-gray-300 py-2 px-4 
               ${icon ? "pl-10" : ""}
               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
               ${error ? "border-red-500 focus:ring-red-500 focus:border-red-500" : ""}

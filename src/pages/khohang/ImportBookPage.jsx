@@ -279,7 +279,7 @@ export default function ImportBooksPage() {
             {selectedBook && (
               <Card>
                 <Text strong>{selectedBook.title}</Text> - Tập {selectedBook.volume || "Tập đơn"}
-                <div className="mt-2 grid grid-cols-2 gap-4">
+                <div className="mt-2 grid grid-cols-2  gap-4">
                   <div>
                     <Text>Số lượng</Text>
                     <InputNumber min={1} value={quantity} onChange={setQuantity} className="w-full" />
@@ -316,7 +316,7 @@ export default function ImportBooksPage() {
           {importList.length > 0 && (
             <>
               <Divider />
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3  gap-4">
                 <Card>
                   <Statistic title="Tổng Số Lượng" value={totalQuantity} prefix={<BookOutlined />} />
                 </Card>

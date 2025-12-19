@@ -153,7 +153,7 @@ function Inventory() {
       </div>
 
       {/* Search + Filter */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col  gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full sm:w-64">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
@@ -181,25 +181,25 @@ function Inventory() {
         <table className="min-w-full divide-y">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase">Mã SP</th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase">Tên sản phẩm</th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase">Tác giả</th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase">Số lượng</th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase">Trạng thái</th>
-              {/* <th className="px-6 py-3 text-left text-xs font-medium uppercase">Ngày tạo</th> */}
-              <th className="px-6 py-3 text-right text-xs font-medium uppercase">Thao tác</th>
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase">Mã SP</th>
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase">Tên sản phẩm</th>
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase">Tác giả</th>
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase">Số lượng</th>
+              <th className="px-4 py-4 text-left text-xs font-medium uppercase">Trạng thái</th>
+              {/* <th className="px-4 py-4 text-left text-xs font-medium uppercase">Ngày tạo</th> */}
+              <th className="px-4 py-4 text-right text-xs font-medium uppercase">Thao tác</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
+                <td colSpan={7} className="px-4 py-4 text-center text-sm text-gray-500">
                   Đang tải dữ liệu...
                 </td>
               </tr>
             ) : filteredProducts.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
+                <td colSpan={7} className="px-4 py-4 text-center text-sm text-gray-500">
                   Không tìm thấy sản phẩm nào.
                 </td>
               </tr>
@@ -209,11 +209,11 @@ function Inventory() {
                 const StatusIcon = statusInfo.icon
                 return (
                   <tr key={product._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium">{product.productCode}</td>
-                    <td className="px-6 py-4 text-sm">{product.productName}</td>
-                    <td className="px-6 py-4 text-sm">{product.author}</td>
-                    <td className="px-6 py-4 text-sm">{product.quantity}</td>
-                    <td className="px-6 py-4 text-sm">
+                    <td className="px-4 py-4 text-sm font-medium">{product.productCode}</td>
+                    <td className="px-4 py-4 text-sm">{product.productName}</td>
+                    <td className="px-4 py-4 text-sm">{product.author}</td>
+                    <td className="px-4 py-4 text-sm">{product.quantity}</td>
+                    <td className="px-4 py-4 text-sm">
                       <span
                         className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold ${statusInfo.className}`}
                       >
@@ -221,8 +221,8 @@ function Inventory() {
                         {statusInfo.label}
                       </span>
                     </td>
-                    {/* <td className="px-6 py-4 text-sm">{new Date(product.createdDate).toLocaleDateString("vi-VN")}</td> */}
-                    <td className="px-6 py-4 text-right text-sm">
+                    {/* <td className="px-4 py-4 text-sm">{new Date(product.createdDate).toLocaleDateString("vi-VN")}</td> */}
+                    <td className="px-4 py-4 text-right text-sm">
                       <button
                         className="p-1 text-gray-500 hover:text-gray-700"
                         onClick={() => toggleDropdown(product._id)}

@@ -375,15 +375,15 @@ function PayrollCalculate() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-4 rounded-lg flex items-center">
           <AlertCircle className="h-5 w-5 mr-2" />
           <span>{error}</span>
         </div>
       )}
 
       <Card title="Thông tin tính lương" description="Nhập thông tin để tính lương cho nhân viên">
-        <div className="grid gap-6">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid gap-4">
+          <div className="grid grid-cols-1  gap-4 md:grid-cols-3">
             <Select
               label="Nhân viên"
               id="employee"
@@ -405,7 +405,7 @@ function PayrollCalculate() {
             <Select label="Năm" id="year" options={years} value={year} onChange={setYear} placeholder="Chọn năm" />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-1  gap-4 md:grid-cols-4">
             <Input
               label="Lương cơ bản"
               id="baseSalary"
@@ -492,7 +492,7 @@ function PayrollCalculate() {
           description={`Bảng lương của ${calculatedSalary.employeeName} - Kỳ lương: ${calculatedSalary.period}`}
         >
           <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1  gap-4 md:grid-cols-3">
               <div>
                 <h3 className="text-sm font-medium">Thông tin nhân viên</h3>
                 <div className="mt-2 space-y-1 text-sm">

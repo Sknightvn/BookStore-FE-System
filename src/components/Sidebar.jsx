@@ -105,7 +105,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       `}
       >
         <div className="flex h-full flex-col">
-          <div className="border-b px-6 py-4">
+          <div className="border-b px-4 py-4">
             <NavLink to="/dashboard" className="flex items-center gap-2 font-semibold">
               <Building className="h-6 w-6 text-blue-600" />
               <span className="text-xl">KT.BookStore</span>
@@ -120,7 +120,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     key={index}
                     to={link.href}
                     className={({ isActive }) => `
-                      flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-blue-600 my-1
+                      flex items-center gap-4 rounded-lg px-4 py-2 transition-all hover:text-blue-600 my-1
                       ${isActive ? "bg-gray-100 text-blue-600" : "text-gray-500"}
                     `}
                   >
@@ -132,7 +132,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </nav>
           </div>
           <div className="mt-auto border-t p-4">
-            <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-blue-600">
+            <button className="flex w-full items-center gap-4 rounded-lg px-4 py-2 text-gray-500 transition-all hover:text-blue-600">
               <LogOut className="h-4 w-4" />
               <span>Đăng xuất</span>
             </button>

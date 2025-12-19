@@ -27,11 +27,11 @@ export default function WarehousePage() {
   });
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-4 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4 text-center">📚 Quản Lý Kho Sách</h1>
 
       {/* Thanh tìm kiếm + sắp xếp */}
-      <div className="flex flex-col md:flex-row gap-3 mb-6">
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
         <input
           type="text"
           placeholder="Tìm theo mã sách hoặc tên sách..."
@@ -56,11 +56,11 @@ export default function WarehousePage() {
         <table className="w-full bg-white shadow-md rounded-lg">
           <thead className="bg-blue-500 text-white">
             <tr>
-              <th className="py-3 px-4 text-center">Mã sách</th>
-              <th className="py-3 px-4 text-center">Tên sách</th>
-              <th className="py-3 px-4 text-center">Tác giả</th>
-              <th className="py-3 px-4 text-center">Số lượng</th>
-              <th className="py-3 px-4 text-center">Giá (VNĐ)</th>
+              <th className="py-4 px-4 text-center">Mã sách</th>
+              <th className="py-4 px-4 text-center">Tên sách</th>
+              <th className="py-4 px-4 text-center">Tác giả</th>
+              <th className="py-4 px-4 text-center">Số lượng</th>
+              <th className="py-4 px-4 text-center">Giá (VNĐ)</th>
             </tr>
           </thead>
           <tbody>

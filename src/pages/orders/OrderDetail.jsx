@@ -334,8 +334,8 @@ const OrderPage = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 flex items-center justify-center">
+        <div className="flex flex-col items-center  gap-4">
           <Loader className="w-8 h-8 text-blue-600 animate-spin" />
           <p className="text-slate-600">Đang tải thông tin đơn hàng...</p>
         </div>
@@ -344,7 +344,7 @@ const OrderPage = () => {
 
   if (error || !order)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md text-center">
           <AlertCircle className="w-12 h-12 text-red-600 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-slate-900 mb-2">Lỗi</h2>
@@ -362,7 +362,7 @@ const OrderPage = () => {
             <h1 className="text-3xl font-bold text-slate-900">Chi tiết đơn hàng</h1>
             <p className="text-slate-600 mt-1">Mã đơn: {order.orderCode}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             {/* Hiển thị trạng thái */}
             <div className={`px-4 py-2 rounded-lg font-semibold ${statusColors[order.status]}`}>
               {statusLabels[order.status]}
@@ -392,11 +392,11 @@ const OrderPage = () => {
 
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Left/Main */}
           <div className="lg:col-span-2 space-y-6">
             {/* Progress */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-lg shadow-sm p-4">
               <h2 className="text-lg font-semibold text-slate-900 mb-6">Trạng thái đơn hàng</h2>
               <div className="relative">
                 <div className="absolute top-8 left-8 right-8 h-1 bg-slate-200 z-0" />
@@ -428,7 +428,7 @@ const OrderPage = () => {
             </div>
 
             {/* Products */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-lg shadow-sm p-4">
               <h2 className="text-lg font-semibold text-slate-900 mb-4">Sản phẩm</h2>
               <div className="space-y-4">
                 {order.items?.map((item) => (
@@ -449,7 +449,7 @@ const OrderPage = () => {
             </div>
 
             {/* Shipping */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-lg shadow-sm p-4">
               <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-blue-600" /> Địa chỉ giao hàng
               </h2>
@@ -554,7 +554,7 @@ const OrderPage = () => {
             </div>
 
             {/* Order info */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-lg shadow-sm p-4">
               <h3 className="font-semibold text-slate-900 mb-3">Thông tin đơn hàng</h3>
               <div className="space-y-2 text-sm">
                 <p>
@@ -573,7 +573,7 @@ const OrderPage = () => {
             </div>
 
             {/* Status history */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-lg shadow-sm p-4">
               <h2 className="font-semibold text-slate-900 mb-4">Lịch sử cập nhật trạng thái</h2>
               <ul className="space-y-3">
                 {order?.statusHistory?.map((history, index) => (
@@ -593,7 +593,7 @@ const OrderPage = () => {
               {order.status !== "delivered" && order.status !== "yeu_cau_hoan_tra" && order.status !== "tuchoi" && (
                 <button
                   onClick={handleConfirmOrder}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <CheckCircle className="w-5 h-5" />
                   Xác nhận bước tiếp theo
@@ -602,7 +602,7 @@ const OrderPage = () => {
               {order.status === "pending" && (
                 <button
                   onClick={handleRejectOrder}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   Từ chối đơn hàng
                 </button>
@@ -611,7 +611,7 @@ const OrderPage = () => {
               {order.status === "yeu_cau_hoan_tra" && order.returnRequest && !returnAccepted && (
                 <button
                   onClick={() => setShowReturnModal(true)}
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-4 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <AlertCircle className="w-5 h-5" />
                   Tiếp nhận yêu cầu hoàn trả
@@ -631,7 +631,7 @@ const OrderPage = () => {
       {/* Modal xác nhận hoàn trả */}
       {showReturnModal && order.returnRequest && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-4">
             <h3 className="text-xl font-bold text-slate-900 mb-4">Yêu cầu hoàn trả đơn hàng</h3>
             <div className="mb-6 bg-orange-50 border border-orange-200 rounded-lg p-4">
               <p className="text-sm text-slate-600 mb-2">Lý do hoàn trả:</p>
@@ -645,7 +645,7 @@ const OrderPage = () => {
                 </p>
               )}
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <button
                 onClick={() => setShowReturnModal(false)}
                 className="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold py-2 px-4 rounded-lg"

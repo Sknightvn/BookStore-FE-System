@@ -384,9 +384,9 @@ export default function PromotionForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6 flex gap-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-4 flex gap-4">
       {/* ------------------- FORM ------------------- */}
-      <div className="bg-white rounded-xl shadow-lg p-6 flex-1 h-fit">
+      <div className="bg-white rounded-xl shadow-lg p-4 flex-1 h-fit">
         <h2 className="text-xl font-bold mb-2 flex items-center gap-2 text-purple-700">
           <TagIcon /> Tạo Khuyến Mãi Mới
         </h2>
@@ -427,10 +427,10 @@ export default function PromotionForm() {
           {/* Discount type */}
           <div className="mb-4">
             <label className="block text-gray-700 mb-2 font-medium">Loại giảm giá</label>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <button
                 type="button"
-                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${discountType === "fixed"
+                className={`flex-1 py-4 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${discountType === "fixed"
                     ? "bg-purple-500 text-white border-purple-500 shadow-md"
                     : "bg-white text-gray-700 border-gray-300 hover:border-purple-300"
                   }`}
@@ -440,7 +440,7 @@ export default function PromotionForm() {
               </button>
               <button
                 type="button"
-                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${discountType === "percent"
+                className={`flex-1 py-4 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${discountType === "percent"
                     ? "bg-purple-500 text-white border-purple-500 shadow-md"
                     : "bg-white text-gray-700 border-gray-300 hover:border-purple-300"
                   }`}
@@ -450,7 +450,7 @@ export default function PromotionForm() {
               </button>
               {/* <button
                 type="button"
-                className={`flex-1 py-3 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${
+                className={`flex-1 py-4 rounded-lg border-2 font-medium transition-all flex items-center justify-center gap-2 ${
                   discountType === "by-book"
                     ? "bg-purple-500 text-white border-purple-500 shadow-md"
                     : "bg-white text-gray-700 border-gray-300 hover:border-purple-300"
@@ -512,7 +512,7 @@ export default function PromotionForm() {
                 />
               </div>
 
-              <div className="mb-4 flex gap-3">
+              <div className="mb-4 flex gap-4">
                 <div className="flex-1">
                   <label className="block text-gray-700 mb-2 font-medium">Ngày bắt đầu</label>
                   <input
@@ -612,7 +612,7 @@ export default function PromotionForm() {
               )}
 
               {/* Date */}
-              <div className="mb-4 flex gap-3">
+              <div className="mb-4 flex gap-4">
                 <div className="flex-1">
                   <label className="block text-gray-700 mb-2 font-medium">Ngày bắt đầu</label>
                   <input
@@ -655,7 +655,7 @@ export default function PromotionForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Đang tạo..." : "Tạo Khuyến Mãi"}
           </button>
@@ -663,17 +663,17 @@ export default function PromotionForm() {
       </div>
 
       {/* ------------------- DANH SÁCH ------------------- */}
-      <div className="bg-white rounded-xl shadow-lg p-6 flex-1">
+      <div className="bg-white rounded-xl shadow-lg p-4 flex-1">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold flex items-center gap-2 text-purple-700">
             <TagIcon /> Danh Sách Khuyến Mãi
           </h2>
-          <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-sm font-semibold">
             {promotions.length} khuyến mãi
           </span>
         </div>
 
-        <div className="flex flex-col gap-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
+        <div className="flex flex-col  gap-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
           {promotions.length === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <TagIcon />
@@ -686,7 +686,7 @@ export default function PromotionForm() {
                 className="border-2 border-gray-200 rounded-xl p-4 hover:shadow-md transition-all bg-gradient-to-r from-white to-gray-50"
               >
                 <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-start gap-3 flex-1">
+                  <div className="flex items-start gap-4 flex-1">
                     <div
                       className={`p-2 rounded-lg ${promo.type === "percent"
                           ? "bg-blue-100 text-blue-600"
@@ -733,13 +733,13 @@ export default function PromotionForm() {
                   </div>
                   <button
                     onClick={() => toggleStatus(promo._id || promo.id, promo.status)}
-                    className={`text-sm font-medium px-3 py-1 rounded-full ${promo.status === "active" ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-500"
+                    className={`text-sm font-medium px-4 py-1 rounded-full ${promo.status === "active" ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-500"
                       }`}
                   >
                     {promo.status === "active" ? "Đang hoạt động" : "Đã tắt"}
                   </button>
                 </div>
-                <div className="flex gap-3 mt-2">
+                <div className="flex gap-4 mt-2">
                   <button
                     onClick={() => message.info("Chức năng chỉnh sửa chưa implement")}
                     className="flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium text-sm"
