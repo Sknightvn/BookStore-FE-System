@@ -24,3 +24,21 @@ export const getStatisticsTop = async (params = {}) => {
     throw new Error(error.response?.data?.error || "Lỗi khi lấy danh sách sách");
   }
 };
+
+export const getCategories = async (params = {}) => {
+  try {
+    const response = await api.get("/categories", { params });
+    return response.data;  // Trả về dữ liệu từ API
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Lỗi khi lấy danh sách thể loại");
+  }
+};
+
+export const getStatistics = async (params = {}) => {
+  try {
+    const response = await api.get("/statistics", { params });
+    return response.data;  // Trả về dữ liệu từ API
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Lỗi khi lấy thống kê");
+  }
+};

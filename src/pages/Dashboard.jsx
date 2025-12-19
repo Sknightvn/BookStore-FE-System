@@ -3,7 +3,7 @@ import Card from "../components/ui/Card"
 import { BarChart } from "../components/charts/BarChart"
 import { RecentActivity } from "../components/dashboard/RecentActivity"
 import { getEmployees } from "../utils/employeeApi"
-import { getBooks, getStatisticsTop } from "../utils/booksApi"
+import { getBooks, getStatisticsTop, getCategories, getStatistics } from "../utils/booksApi"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
@@ -12,32 +12,19 @@ function Dashboard() {
   const [products, setProducts] = useState([])  
   const [topProducts, setTopProducts] = useState([])  // State for top-selling products
   const [totalRevenue, setTotalRevenue] = useState(0)  // State for total revenue
+  const [categories, setCategories] = useState([])  // State for categories
   const [isLoading, setIsLoading] = useState(true) 
 
-  // Tính số lượng sản phẩm theo từng loại (hoặc phòng ban nếu có)
+  // Tính số lượng sản phẩm theo từng loại từ API categories
   const getProductCountByCategory = () => {
-    const categoryCountMap = {}
-
-    // Kiểm tra xem có sản phẩm nào không
-    if (products && products.length > 0) {
-      products.forEach((product) => {
-        // Sử dụng category.name hoặc "Khác" nếu category là null hoặc không có
-        const categoryName = product.category?.name || "Sách"  
-        if (categoryCountMap[categoryName]) {
-          categoryCountMap[categoryName] += 1
-        } else {
-          categoryCountMap[categoryName] = 1
-        }
-      })
-
-      // Trả về mảng để dùng cho biểu đồ
-      return Object.entries(categoryCountMap).map(([name, total]) => ({
-        name: name === "Khác" ? "Sách" : name, 
-        total,
+    // Sử dụng dữ liệu từ API categories với trường quantity
+    if (categories && categories.length > 0) {
+      return categories.map((category) => ({
+        name: category.name,
+        total: category.quantity || 0,
       }))
-    } else {
-      return []
     }
+    return []
   }
 
   useEffect(() => {
@@ -45,7 +32,14 @@ function Dashboard() {
       try {
         setIsLoading(true)
 
-        // Lấy danh sách nhân viên
+        // Lấy tổng doanh thu từ API statistics - gọi đầu tiên
+        const statisticsResponse = await getStatistics()
+        const totalRevenue = statisticsResponse?.totalRevenue || statisticsResponse?.data?.totalRevenue || 0
+        setTotalRevenue(totalRevenue)
+
+        const categoriesResponse = await getCategories()
+        setCategories(categoriesResponse.data || categoriesResponse)
+
         const employeesResponse = await getEmployees()
         setEmployees(employeesResponse.data)
 
@@ -53,11 +47,10 @@ function Dashboard() {
         const booksResponse = await getBooks() 
         setProducts(booksResponse.data)
 
-        // Lấy danh sách sản phẩm bán chạy và tổng doanh thu
+        // Lấy danh sách sản phẩm bán chạy
         const topProductsResponse = await getStatisticsTop()  // API to fetch top products
-        const totalRevenue = topProductsResponse.topProducts.reduce((sum, product) => sum + product.totalRevenue, 0)
-        setTopProducts(topProductsResponse.topProducts)
-        setTotalRevenue(totalRevenue)  // Set total revenue
+        const topProducts = topProductsResponse?.topProducts || topProductsResponse?.data?.topProducts || []
+        setTopProducts(topProducts)
       } catch (error) {
         console.error("Error fetching data:", error)
         toast.error("Không thể tải dữ liệu. Vui lòng thử lại sau.")
