@@ -193,7 +193,7 @@ export default function BookInventoryPage() {
     <div className="min-h-screen bg-[#fafafa]">
       <div className="max-w-[95%] mx-auto space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between  gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center gap-4">
               <BookOutlined className="text-primary" />
@@ -201,12 +201,12 @@ export default function BookInventoryPage() {
             </h1>
             <p className="text-muted-foreground text-lg">Theo dõi tồn kho và quản lý sách hiệu quả</p>
           </div>
-          <Space>
+          <Space size="small">
             <Button
               type="default"
               size="large"
               icon={<InboxOutlined />}
-              className="h-12 px-4 text-base font-semibold"
+              className="px-4 text-sm font-medium shadow-sm"
               onClick={() => navigate("/warehouseListPage")}
             >
               Danh Sách Phiếu Nhập
@@ -216,7 +216,7 @@ export default function BookInventoryPage() {
               type="primary"
               size="large"
               icon={<PlusOutlined />}
-              className="bg-primary hover:bg-accent h-12 px-4 text-base font-semibold"
+              className="px-4 text-sm font-medium shadow-md"
               onClick={() => navigate("/importBookPage")}
             >
               Nhập Hàng
@@ -227,43 +227,79 @@ export default function BookInventoryPage() {
         {/* Statistics Cards */}
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} lg={6}>
-            <Card className="bg-card border-border hover:border-primary transition-colors">
-              <Statistic
-                title={<span className="text-muted-foreground">Tổng Số Sách</span>}
-                value={totalBooks}
-                prefix={<BookOutlined className="text-primary" />}
-                valueStyle={{ color: "#3b82f6", fontWeight: "bold" }}
-              />
+            <Card
+              hoverable
+              bordered
+              bodyStyle={{ padding: 16 }}
+              style={{ borderRadius: 8, boxShadow: "0 2px 6px rgba(15,23,42,0.04)" }}
+            >
+              <Space size="middle">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-50">
+                  <BookOutlined className="text-blue-500" />
+                </div>
+                <Statistic
+                  title={<span className="text-muted-foreground">Tổng Số Sách</span>}
+                  value={totalBooks}
+                  valueStyle={{ color: "#2563eb", fontWeight: 700 }}
+                />
+              </Space>
             </Card>
           </Col>
           <Col xs={24} sm={12} lg={6}>
-            <Card className="bg-card border-border hover:border-success transition-colors">
-              <Statistic
-                title={<span className="text-muted-foreground">Còn Hàng</span>}
-                value={inStockBooks}
-                prefix={<CheckCircleOutlined className="text-success" />}
-                valueStyle={{ color: "#10b981", fontWeight: "bold" }}
-              />
+            <Card
+              hoverable
+              bordered
+              bodyStyle={{ padding: 16 }}
+              style={{ borderRadius: 8, boxShadow: "0 2px 6px rgba(15,23,42,0.04)" }}
+            >
+              <Space size="middle">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-50">
+                  <CheckCircleOutlined className="text-emerald-500" />
+                </div>
+                <Statistic
+                  title={<span className="text-muted-foreground">Còn Hàng</span>}
+                  value={inStockBooks}
+                  valueStyle={{ color: "#059669", fontWeight: 700 }}
+                />
+              </Space>
             </Card>
           </Col>
           <Col xs={24} sm={12} lg={6}>
-            <Card className="bg-card border-border hover:border-warning transition-colors">
-              <Statistic
-                title={<span className="text-muted-foreground">Sắp Hết</span>}
-                value={lowStockBooks}
-                prefix={<WarningOutlined className="text-warning" />}
-                valueStyle={{ color: "#f59e0b", fontWeight: "bold" }}
-              />
+            <Card
+              hoverable
+              bordered
+              bodyStyle={{ padding: 16 }}
+              style={{ borderRadius: 8, boxShadow: "0 2px 6px rgba(15,23,42,0.04)" }}
+            >
+              <Space size="middle">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-50">
+                  <WarningOutlined className="text-amber-500" />
+                </div>
+                <Statistic
+                  title={<span className="text-muted-foreground">Sắp Hết</span>}
+                  value={lowStockBooks}
+                  valueStyle={{ color: "#d97706", fontWeight: 700 }}
+                />
+              </Space>
             </Card>
           </Col>
           <Col xs={24} sm={12} lg={6}>
-            <Card className="bg-card border-border hover:border-danger transition-colors">
-              <Statistic
-                title={<span className="text-muted-foreground">Hết Hàng</span>}
-                value={outOfStockBooks}
-                prefix={<InboxOutlined className="text-danger" />}
-                valueStyle={{ color: "#ef4444", fontWeight: "bold" }}
-              />
+            <Card
+              hoverable
+              bordered
+              bodyStyle={{ padding: 16 }}
+              style={{ borderRadius: 8, boxShadow: "0 2px 6px rgba(15,23,42,0.04)" }}
+            >
+              <Space size="middle">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-rose-50">
+                  <InboxOutlined className="text-rose-500" />
+                </div>
+                <Statistic
+                  title={<span className="text-muted-foreground">Hết Hàng</span>}
+                  value={outOfStockBooks}
+                  valueStyle={{ color: "#e11d48", fontWeight: 700 }}
+                />
+              </Space>
             </Card>
           </Col>
         </Row>
