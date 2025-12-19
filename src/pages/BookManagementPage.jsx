@@ -135,7 +135,7 @@ const BookManagementPage = () => {
         return (
           <Tag
             bordered
-            color={tone === "success" ? "green" : tone === "warning" ? "gold" : "red"}
+            color={tone === "success" ? "blue" : tone === "warning" ? "gold" : "red"}
             style={{ borderRadius: 999, padding: "2px 10px" }}
           >
             <span className="font-semibold text-xs whitespace-nowrap">{qty} quyển</span>

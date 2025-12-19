@@ -132,14 +132,18 @@ export default function BookInventoryPage() {
       key: "quantity",
       width: 120,
       align: "center",
-      render: (quantity) => (
-        <span
-          className={`font-bold text-lg ${quantity >= 10 ? "text-success" : quantity > 0 ? "text-warning" : "text-danger"
-            }`}
-        >
-          {quantity}
-        </span>
-      ),
+      render: (quantity) => {
+        const tone = quantity >= 10 ? "success" : quantity > 0 ? "warning" : "error"
+        return (
+          <Tag
+            bordered
+            color={tone === "success" ? "blue" : tone === "warning" ? "gold" : "red"}
+            style={{ borderRadius: 999, padding: "2px 10px" }}
+          >
+            <span className="font-semibold text-xs whitespace-nowrap">{quantity} quyển</span>
+          </Tag>
+        )
+      },
     },
     {
       title: "Trạng Thái",
@@ -256,7 +260,7 @@ export default function BookInventoryPage() {
         </Card>
 
         {/* Table */}
-        <Card>
+        <div className="bg-white rounded-lg shadow-sm border p-2">
           <Table
             columns={columns}
             dataSource={filteredBooks}
@@ -268,7 +272,7 @@ export default function BookInventoryPage() {
             }}
             scroll={{ x: 800 }}
           />
-        </Card>
+        </div>
       </div>
     </div>
   )
