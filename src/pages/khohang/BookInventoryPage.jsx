@@ -21,38 +21,58 @@ export default function BookInventoryPage() {
   const [loading, setLoading] = useState(false)
   const [searchText, setSearchText] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 9,
+    total: 0,
+    totalPages: 1,
+  })
+  const [currentPage, setCurrentPage] = useState(1)
   const navigate = useNavigate()
 
   // ✅ Gọi API để lấy danh sách sách
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        setLoading(true)
-        const res = await axios.get(`${API_URL}/books`)
-        if (res.data.success) {
-          // Chuyển dữ liệu từ API về định dạng phù hợp với bảng
-          const formattedBooks = res.data.data.map((book) => ({
-            key: book._id,
-            issn: book.ISSN || "—",
-            name: book.title,
-            volume: book.volume || "—",
-            category: book.category?.name || "Chưa phân loại",
-            quantity: book.stock ?? 0,
-          }))
-          setBooks(formattedBooks)
-        } else {
-          message.error("Không thể tải danh sách sách.")
-        }
-      } catch (error) {
-        console.error("Lỗi khi gọi API:", error)
-        message.error("Lỗi khi tải dữ liệu sách!")
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchBooks()
   }, [])
+
+  const fetchBooks = async (page = 1, pageSize = pagination.limit) => {
+    try {
+      setLoading(true)
+      const res = await axios.get(`${API_URL}/books`, {
+        params: {
+          page,
+          limit: pageSize,
+        },
+      })
+      if (res.data?.success) {
+        const formattedBooks = (res.data.data || []).map((book) => ({
+          key: book._id,
+          issn: book.ISSN || "—",
+          name: book.title,
+          volume: book.volume || "—",
+          category: book.category?.name || "Chưa phân loại",
+          quantity: book.stock ?? 0,
+        }))
+        const paging = res.data.pagination || {}
+        setBooks(formattedBooks)
+        setPagination((prev) => ({
+          ...prev,
+          ...paging,
+          limit: paging.limit || pageSize || prev.limit,
+          page: paging.page || page,
+        }))
+        setCurrentPage(paging.page || page)
+      } else {
+        setBooks([])
+        message.error(res.data?.message || "Không thể tải danh sách sách.")
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error)
+      message.error("Lỗi khi tải dữ liệu sách!")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   // ✅ Trạng thái hiển thị
   const getStatusTag = (quantity) => {
@@ -89,7 +109,7 @@ export default function BookInventoryPage() {
   })
 
   // ✅ Tính thống kê
-  const totalBooks = books.reduce((sum, book) => sum + book.quantity, 0)
+  const totalBooks = pagination.total || books.length
   const inStockBooks = books.filter((book) => book.quantity >= 10).length
   const lowStockBooks = books.filter((book) => book.quantity > 0 && book.quantity < 10).length
   const outOfStockBooks = books.filter((book) => book.quantity === 0).length
@@ -154,6 +174,20 @@ export default function BookInventoryPage() {
   ]
 
   const categories = ["all", ...new Set(books.map((book) => book.category))]
+
+  const isSearching = searchText.trim().length > 0 || selectedCategory !== "all"
+  const displayBooks = isSearching ? filteredBooks : books
+  const displayTotal = isSearching ? filteredBooks.length : pagination.total || filteredBooks.length
+
+  const handleTableChange = (pager) => {
+    const { current, pageSize } = pager
+    if (isSearching) {
+      setCurrentPage(current)
+      setPagination((prev) => ({ ...prev, limit: pageSize }))
+      return
+    }
+    fetchBooks(current, pageSize)
+  }
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
@@ -263,13 +297,16 @@ export default function BookInventoryPage() {
         <div className="bg-white rounded-lg shadow-sm border p-2">
           <Table
             columns={columns}
-            dataSource={filteredBooks}
+            dataSource={displayBooks}
             loading={loading}
             pagination={{
-              pageSize: 10,
+              current: isSearching ? 1 : pagination.page,
+              pageSize: pagination.limit,
+              total: displayTotal,
               showSizeChanger: true,
-              showTotal: (total) => `Tổng ${total} sách`,
+              showTotal: (total, range) => `${range[0]}-${range[1]} trong ${total} sách`,
             }}
+            onChange={handleTableChange}
             scroll={{ x: 800 }}
           />
         </div>
