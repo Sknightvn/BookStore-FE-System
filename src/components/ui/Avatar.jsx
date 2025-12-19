@@ -9,7 +9,7 @@ function Avatar({ src, alt, initials, size = "md", className = "" }) {
   
     return (
       <div
-        className={`relative inline-flex items-center justify-center rounded-full bg-gray-200 ${sizeStyles[size]} ${className}`}
+        className={`relative inline-flex items-center justify-center rounded-full bg-gray-200 flex-shrink-0 ${sizeStyles[size]} ${className}`}
       >
         {hasImage ? (
           <img
