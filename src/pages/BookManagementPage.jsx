@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Plus, Edit2, Trash2, Search } from "lucide-react";
-import { Modal, message, Table, Breadcrumb, Button, Input } from "antd";
+import { Modal, message, Table, Breadcrumb, Button, Input, Badge, Tooltip, Space, Tag } from "antd";
 import AddBookModal from "./AddBookModal";
 import EditBookModal from "./EditBookModal";
 const API_URL = import.meta.env.VITE_API_URL || "https://bookstore-be-b450.onrender.com/api";
@@ -131,9 +131,16 @@ const BookManagementPage = () => {
       dataIndex: "stock",
       render: (value) => {
         const qty = value || 0;
-        const tone =
-          qty > 40 ? "bg-green-100 text-green-700" : qty > 20 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700";
-        return <span className={`px-2 py-1 text-sm rounded-full ${tone}`}>{qty}</span>;
+        const tone = qty > 40 ? "success" : qty > 20 ? "warning" : "error";
+        return (
+          <Tag
+            bordered
+            color={tone === "success" ? "green" : tone === "warning" ? "gold" : "red"}
+            style={{ borderRadius: 999, padding: "2px 10px" }}
+          >
+            <span className="font-semibold text-xs whitespace-nowrap">{qty} quyển</span>
+          </Tag>
+        );
       },
     },
     {
@@ -153,10 +160,32 @@ const BookManagementPage = () => {
       width: 120,
       align: "center",
       render: (_value, record) => (
-        <div className="flex gap-3 justify-center">
-          <Button type="text" onClick={() => handleEdit(record)} icon={<Edit2 size={18} />} />
-          <Button danger type="text" onClick={() => handleDelete(record._id, record.title)} icon={<Trash2 size={18} />} />
-        </div>
+        <Space size="small" align="center" className="justify-center">
+          <Tooltip title="Chỉnh sửa">
+            <Button
+              type="primary"
+              shape="round"
+              size="middle"
+              onClick={() => handleEdit(record)}
+              icon={<Edit2 size={16} />}
+            >
+              Sửa
+            </Button>
+          </Tooltip>
+          <Tooltip title="Xóa sách">
+            <Button
+              danger
+              type="primary"
+              ghost
+              shape="round"
+              size="middle"
+              onClick={() => handleDelete(record._id, record.title)}
+              icon={<Trash2 size={16} />}
+            >
+              Xóa
+            </Button>
+          </Tooltip>
+        </Space>
       ),
     },
   ];
